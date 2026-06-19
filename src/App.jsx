@@ -1,13 +1,6 @@
 import { useState } from 'react';
 
-type BoardState = (string | null)[];
-
-interface WinnerInfo {
-  winner: string;
-  line: number[];
-}
-
-function calculateWinner(squares: BoardState): WinnerInfo | null {
+function calculateWinner(squares) {
   const lines = [
     [0, 1, 2], // rows
     [3, 4, 5],
@@ -28,8 +21,8 @@ function calculateWinner(squares: BoardState): WinnerInfo | null {
 }
 
 function App() {
-  const [board, setBoard] = useState<BoardState>(Array(9).fill(null));
-  const [isXNext, setIsXNext] = useState<boolean>(true);
+  const [board, setBoard] = useState(Array(9).fill(null));
+  const [isXNext, setIsXNext] = useState(true);
   const [playerNames, setPlayerNames] = useState({
     x: 'Player X',
     o: 'Player O',
@@ -45,7 +38,7 @@ function App() {
   const winningLine = winnerInfo ? winnerInfo.line : [];
   const isTie = !winner && board.every((square) => square !== null);
 
-  const handleSquareClick = (index: number) => {
+  const handleSquareClick = (index) => {
     // Ignore click if square is filled or game is over
     if (board[index] || winner || isTie) return;
 
@@ -84,7 +77,7 @@ function App() {
     setScores({ x: 0, o: 0, ties: 0 });
   };
 
-  const renderToken = (value: string | null) => {
+  const renderToken = (value) => {
     if (value === 'X') {
       return (
         <span className="token token-x">
